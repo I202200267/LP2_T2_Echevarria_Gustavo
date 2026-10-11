@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Evaluación T2 - Echevarria Gustavo</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+	<div class="container mt-5">
+		<div class="card shadow-lg">
+			<div class="card-body">
+				<h1 class="card-title text-center">Orden de compra nueva</h1>
+				<div class="row d-flex justify-content-center">
+					<div class="col-md-6">
+						<form th:action="@{/ordencompra/registrar}" class="row g-2" method="post" novalidate th:object="${ordenCompra}">
+							<div class="col-md-6 position-relative">
+								<label for="proveedor" class="form-label">Proveedor</label>
+								<div class="input-group">
+									<span class="input-group-text"><i class="fa-solid fa-truck-fast"></i></span>
+									<select class="form-select" th:field="*{proveedor}" required>
+										<option value="" selected hidden="hidden">--Seleccione--</option>
+										<option th:each="item: ${lstProveedor}"
+												th:value="${item.idProveedor}"
+												th:text="${item.razonSocial}">
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-6 position-relative">
+								<label for="monto" class="form-label">Monto</label>
+								<div class="input-group">
+									<span class="input-group-text">S/.</span>
+									<input class="form-control" type="number" step="0.01" placeholder="0.00"
+										th:field="*{monto}" required>
+								</div>
+							</div>
+							<div class="col-md-12 position-relative">
+								<label for="direccionEntrega" class="form-label">Dirección de entrega</label>
+								<input type="text" class="form-control" placeholder="Ingrese una dirección de entrega"
+									th:field="*{direccionEntrega}" required>
+							</div>
+							<div class="col-md-6 position-relative">
+								<label for="fechaEntrega" class="form-label">Fecha de entrega</label>
+								<input type="date" class="form-control" th:field="*{fechaEntrega}" required>
+							</div>
+							<div class="col-md-12 d-flex justify-content-between mt-3">
+								<a th:href="@{/ordencompra/listado}" class="btn btn-outline-dark">
+									<i class="fa-solid fa-reply"></i> Regresar
+								</a>
+								<button type="submit" class="btn btn-primary">
+									<i class="fa-solid fa-floppy-disk"></i> Registrar
+								</button>
+								<button type="reset" class="btn btn-secondary">
+									<i class="fa-solid fa-broom"></i> Limpiar
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
